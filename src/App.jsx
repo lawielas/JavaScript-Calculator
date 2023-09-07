@@ -4,8 +4,7 @@ function App() {
 
   return (
     <div>
-
-            <button id="clear" className="ac-btn">AC</button>
+      <button id="clear" className="ac-btn">AC</button>
             <button id="divide" className="action-btn">/</button>
             <br/>
             <button id="7" className="digit-btn">7</button>
