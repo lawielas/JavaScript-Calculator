@@ -8,13 +8,13 @@ const controlStyle = 'w-14 h-10 bg-slate-600'
 function App() {
 
   const [ display, setDisplay ] = useState([''])
-  const [ inputDisplay, setInputDisplay ] = useState([0])
+  const [ inputDisplay, setInputDisplay ] = useState([])
 
   
 
   const handleClear = () => {
     setDisplay([''])
-    setInputDisplay([0])
+    setInputDisplay([])
   }
 
   const handleDivide = (e) => {
@@ -22,18 +22,36 @@ function App() {
     setInputDisplay([e.target.innerText])
   }
 
-  const handleDigitClick = (e) => {
-    // if(inputDisplay.length > 0 || inputDisplay !== 0){
-    //   setInputDisplay([0])
-    // }
+  const handleAdd = (e) => {
+    setDisplay([...display, e.target.innerText])
+    setInputDisplay([e.target.innerText])
+  }
 
-    if(inputDisplay[0] === 0){
+  const handleSubtract = (e) => {
+    setDisplay([...display, e.target.innerText])
+    setInputDisplay([e.target.innerText])
+  }
+
+  const handleMultiple = (e) => {
+    setDisplay([...display, e.target.innerText])
+    setInputDisplay([e.target.innerText])
+  }
+
+  const handleDigitClick = (e) => {
+    let temp = e.target.innerText
+
+    if(temp === '0' && inputDisplay.length === 1){
       setDisplay([''])
       setInputDisplay([e.target.innerText])
     } else {
       setDisplay([...display, e.target.innerText])
       setInputDisplay([...inputDisplay, e.target.innerText])
     }
+
+    if(inputDisplay[0] === '/' || inputDisplay[0] === '+' || inputDisplay[0] === '-' || inputDisplay[0] === '*'){
+      setInputDisplay([e.target.innerText])
+    }
+
   }
 
   return (
@@ -50,17 +68,17 @@ function App() {
           <button id="seven" className={digitStyle} onClick={handleDigitClick}>7</button>
           <button id="eight" className={digitStyle} onClick={handleDigitClick}>8</button>
           <button id="nine" className={digitStyle} onClick={handleDigitClick}>9</button>
-          <button id="multiply" className={controlStyle}>X</button>
+          <button id="multiply" className={controlStyle} onClick={handleMultiple}>X</button>
           <br/>
           <button id="four" className={digitStyle} onClick={handleDigitClick}>4</button>
           <button id="five" className={digitStyle} onClick={handleDigitClick}>5</button>
           <button id="six" className={digitStyle} onClick={handleDigitClick}>6</button>
-          <button id="add" className={controlStyle}>+</button>
+          <button id="add" className={controlStyle} onClick={handleAdd}>+</button>
           <br/>
           <button id="one" className={digitStyle} onClick={handleDigitClick}>1</button>
           <button id="two" className={digitStyle} onClick={handleDigitClick}>2</button>
           <button id="three" className={digitStyle} onClick={handleDigitClick}>3</button>
-          <button id="subtract" className={controlStyle}>-</button>
+          <button id="subtract" className={controlStyle} onClick={handleSubtract}>-</button>
           <br/>
           <button id="zero" className={digitStyle} onClick={handleDigitClick}>0</button>
           <button id="decimal" className={digitStyle}>.</button>
