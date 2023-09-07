@@ -1,0 +1,13 @@
+{
+  "name": "javascript-calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "buildcss": "sass styles/index.scss styles/index.css -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
