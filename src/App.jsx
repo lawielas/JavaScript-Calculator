@@ -8,13 +8,13 @@ const controlStyle = 'w-14 h-10 bg-slate-600'
 function App() {
 
   const [ display, setDisplay ] = useState([''])
-  const [ inputDisplay, setInputDisplay ] = useState([])
+  const [ inputDisplay, setInputDisplay ] = useState([0])
 
   
 
   const handleClear = () => {
     setDisplay([''])
-    setInputDisplay([])
+    setInputDisplay([0])
   }
 
   const handleDivide = (e) => {
@@ -41,17 +41,41 @@ function App() {
     let temp = e.target.innerText
 
     if(temp === '0' && inputDisplay.length === 1){
-      setDisplay([''])
-      setInputDisplay([e.target.innerText])
+      if(display.length === 1) {
+        setDisplay([''])
+        setInputDisplay([e.target.innerText])
+      } else {
+        setDisplay([...display, e.target.innerText])
+        setInputDisplay([...inputDisplay, e.target.innerText])
+      }
     } else {
       setDisplay([...display, e.target.innerText])
-      setInputDisplay([...inputDisplay, e.target.innerText])
+      temp = [...inputDisplay, e.target.innerText]
+      if (temp[0] === 0 && e.target.innerText !== 0) {
+        temp = temp.slice(1,)
+      }
+      setInputDisplay(temp)
+      console.log(temp)
     }
 
     if(inputDisplay[0] === '/' || inputDisplay[0] === '+' || inputDisplay[0] === '-' || inputDisplay[0] === '*'){
       setInputDisplay([e.target.innerText])
     }
 
+  }
+
+  const handleDot = (e) => {
+    if(!inputDisplay.includes('.')) {
+        setDisplay([...display, e.target.innerText])
+        setInputDisplay([...inputDisplay, e.target.innerText])
+    }
+  }
+
+  const handleEqualClick = () => {
+    let result = display.join('')
+    result = eval(result)
+    setInputDisplay(result)
+    console.log(result)
   }
 
   return (
@@ -68,7 +92,7 @@ function App() {
           <button id="seven" className={digitStyle} onClick={handleDigitClick}>7</button>
           <button id="eight" className={digitStyle} onClick={handleDigitClick}>8</button>
           <button id="nine" className={digitStyle} onClick={handleDigitClick}>9</button>
-          <button id="multiply" className={controlStyle} onClick={handleMultiple}>X</button>
+          <button id="multiply" className={controlStyle} onClick={handleMultiple}>*</button>
           <br/>
           <button id="four" className={digitStyle} onClick={handleDigitClick}>4</button>
           <button id="five" className={digitStyle} onClick={handleDigitClick}>5</button>
@@ -81,8 +105,8 @@ function App() {
           <button id="subtract" className={controlStyle} onClick={handleSubtract}>-</button>
           <br/>
           <button id="zero" className={digitStyle} onClick={handleDigitClick}>0</button>
-          <button id="decimal" className={digitStyle}>.</button>
-          <button id="equals" className='w-[120px] h-10 bg-blue-600'>=</button>
+          <button id="decimal" className={digitStyle} onClick={handleDot}>.</button>
+          <button id="equals" className='w-[120px] h-10 bg-blue-600' onClick={handleEqualClick}>=</button>
         </div>
         <div>
           <p>Designed and developed by <a href="http://github.com/lawielas">Lawal</a></p>
